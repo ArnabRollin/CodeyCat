@@ -1,12 +1,13 @@
 # Exclude files and dirs
 
-.idea
+.DS_Store/
+.idea/
 .vscode/
 tests/
 recourse.*
 *.pyc
 *.prefer
 
-# Useless
+# Depecrated
 
 ui/connector_.py
