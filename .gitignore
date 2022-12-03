@@ -1,6 +1,12 @@
+# Exclude files and dirs
+
 .idea
 .vscode/
 tests/
 recourse.*
-*.sqlite3
 *.pyc
+*.prefer
+
+# Useless
+
+ui/connector_.py
