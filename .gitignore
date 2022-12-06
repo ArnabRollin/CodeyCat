@@ -5,9 +5,13 @@
 .vscode/
 tests/
 recourse.*
-*.pyc
+**/__pycache__/
 *.prefer
 
 # Depecrated
 
 ui/connector_.py
+
+# devtools
+
+ui/debug.py
