@@ -27,7 +27,7 @@ class Request:
 Commands: _TypeAlias = _Literal[
     "init",
     "add",
-    "get"
+    "get",
 ]
 
 
@@ -40,7 +40,10 @@ def connect(file: str, command: Commands, *, kwarg_dict: dict[str, _Any] = {}, *
                 with open(file, "w"):
                     ...
 
-                connect(file, "add", kwarg_dict=kwargs)
+                if kwarg_dict == {}:
+                    connect(file, "add", kwarg_dict=kwargs)
+                else:
+                    connect(file, "add", kwarg_dict=kwarg_dict)
 
         case "add":
             if kwarg_dict == {}:
@@ -60,6 +63,8 @@ def connect(file: str, command: Commands, *, kwarg_dict: dict[str, _Any] = {}, *
             exclude = ['exclude', 'locals_', 'file', 'command',
                        'kwarg_dict', 'kwargs', 'file_path', 'l', 'kv']
 
+            locals_: dict[str, _Any] = {}
+
             for l in file_path.read_text().splitlines():
                 kv = l.split("=")
 
@@ -69,12 +74,13 @@ def connect(file: str, command: Commands, *, kwarg_dict: dict[str, _Any] = {}, *
                 except:
                     exec(f"{kv[0]}=\"{kv[1]}\"")
                 finally:
-                    locals_: dict[str, _Any] = {}
 
                     for i in locals().copy().items():
                         if not i[0] in exclude:
                             locals_.update({i[0]: i[1]})
 
-                return Request(command, "", locals_)
+                r = Request(command, "", locals_)  # type: ignore
+                return r
 
-    return Request(command)
+    r = Request(command)
+    return r

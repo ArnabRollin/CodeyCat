@@ -6,7 +6,7 @@ from ui.data import *
 
 # Init table and vars
 
-connect(data_file, "init", theme="Dark")
+connect(data_file, "init", theme="Light")
 
 # Main
 
