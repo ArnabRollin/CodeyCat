@@ -51,13 +51,17 @@ def connect(file: str, command: Commands, *, kwarg_dict: dict[str, _Any] = {}, *
             else:
                 kwg = kwarg_dict
 
+            write = ""
+
             if not kwg == {}:
                 for i in kwg.items():
                     fetch = connect(file, "get").fetch
 
                     if not i[0] in fetch.keys():
                         text = f"{i[0]}={i[1]}"
-                        file_path.write_text(text.strip())
+                        write += text + "\n"
+
+            file_path.write_text(write.strip())
 
         case "get":
             exclude = ['exclude', 'locals_', 'file', 'command',
